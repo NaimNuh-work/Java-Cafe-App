@@ -2,7 +2,7 @@
 
 A Java-based Point of Sale (POS) and Inventory Management system designed for small cafes. This application uses a lightweight HTTP server to serve a web-based frontend and manages data persistence using CSV and JSON files.
 
-🚀 Features
+## 🚀 Features
 
 Point of Sale (POS): Interactive web interface to browse the menu and place orders.
 
@@ -18,7 +18,7 @@ Admin: Can view stock levels and restock items.
 
 Data Persistence: Saves all inventory changes to inventory.csv automatically.
 
-📂 Project Structure
+## 📂 Project Structure
 
 CafeProject/
 ├── src/
@@ -32,7 +32,7 @@ CafeProject/
 └── README.md                 # This documentation
 
 
-🛠️ Prerequisites
+## 🛠️ Prerequisites
 
 To run this project, you need:
 
@@ -46,7 +46,7 @@ javax.mail-1.6.2.jar
 
 javax.activation-1.2.0.jar
 
-⚙️ Setup & Installation
+## ⚙️ Setup & Installation
 
 Clone/Download the Project:
 Extract the files into a folder.
@@ -65,7 +65,7 @@ Locate the EmailService class.
 
 Update SENDER_EMAIL, APP_PASSWORD, and RECIPIENT_EMAIL with your own credentials to enable alerts.
 
-▶️ How to Run
+## ▶️ How to Run
 
 Open the project in IntelliJ IDEA.
 
@@ -78,9 +78,9 @@ Wait for the console message:
 
 Open your web browser and navigate to: http://localhost:8080
 
-📖 User Guide
+## 📖 User Guide
 
-1. Login
+### 1. Login
 
 When you open the app, you must login. Use the default credentials found in users.csv:
 
@@ -108,7 +108,7 @@ staff123
 
 Can Order Only
 
-2. Making a Sale
+### 2. Making a Sale
 
 Click on any menu item (e.g., "Latte").
 
@@ -116,7 +116,7 @@ If stock is sufficient, a success message appears, and inventory is deducted.
 
 If stock is low, the transaction fails to prevent negative inventory.
 
-3. Restocking (Admin Only)
+### 3. Restocking (Admin Only)
 
 Login as Admin.
 
@@ -126,7 +126,7 @@ Enter the quantity to add (e.g., 500 for 500ml/grams).
 
 The inventory.csv file will be updated immediately.
 
-💾 Data Formats
+## 💾 Data Formats
 
 Inventory Database (inventory.csv)
 
@@ -154,7 +154,7 @@ Maps menu items to required ingredients.
 ]
 
 
-🏗️ Design Patterns Used
+## 🏗️ Design Patterns Used
 
 MVC Architecture: Separation of Frontend (View), inventory.csv (Model), and CafeWebServer (Controller).
 
@@ -164,7 +164,7 @@ Inheritance: All API controllers extend a BaseController for shared JSON handlin
 
 Encapsulation: Data fields are private and accessed only through Service methods.
 
-⚠️ Troubleshooting
+## ⚠️ Troubleshooting
 
 "Port 8080 already in use": Stop any other running instances of the server or change the port in CafeWebServer.java.
 
