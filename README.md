@@ -1,4 +1,4 @@
-☕ Cafe Inventory Management System
+#☕ Cafe Inventory Management System
 
 A Java-based Point of Sale (POS) and Inventory Management system designed for small cafes. This application uses a lightweight HTTP server to serve a web-based frontend and manages data persistence using CSV and JSON files.
 
