@@ -1,0 +1,19 @@
+ID,Name,CurrentStock,Unit,LowStockThreshold
+501,Espresso Beans,1462.00,grams,100.00
+502,Water,19500.00,ml,1000.00
+503,Whole Milk,3400.00,ml,1000.00
+504,Vanilla Syrup,1000.00,ml,100.00
+505,Chocolate Sauce,1000.00,ml,100.00
+506,Black Tea Bag,100.00,unit,20.00
+507,Lemon Slice,50.00,unit,10.00
+508,Sugar Syrup,1000.00,ml,200.00
+509,Ice Cubes,5000.00,grams,500.00
+510,Sourdough Bread,36.00,slice,10.00
+511,Avocado,28.00,unit,5.00
+512,Chilli Flakes,496.00,grams,50.00
+513,Olive Oil,980.00,ml,200.00
+514,Ciabatta Bread,30.00,unit,5.00
+515,Grilled Chicken Breast,3000.00,grams,500.00
+516,Mayonnaise,1000.00,grams,100.00
+517,Lettuce,1000.00,grams,200.00
+518,Tomato,1000.00,grams,200.00

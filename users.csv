@@ -1,0 +1,5 @@
+username,password,role
+admin,admin123,ADMIN
+staff,staff123,STAFF
+manager,secret,SUPERADMIN
+naimnuh,naimnuhhensem,OWNER

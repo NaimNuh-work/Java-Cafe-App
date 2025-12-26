@@ -1,0 +1,104 @@
+[
+  {
+    "id": 101,
+    "name": "Espresso",
+    "price": 3.00,
+    "ingredients": [ { "id": 501, "qty": 18 } ]
+  },
+  {
+    "id": 102,
+    "name": "Double Espresso",
+    "price": 4.50,
+    "ingredients": [ { "id": 501, "qty": 36 } ]
+  },
+  {
+    "id": 103,
+    "name": "Americano",
+    "price": 4.00,
+    "ingredients": [ 
+      { "id": 501, "qty": 18 }, 
+      { "id": 502, "qty": 250 } 
+    ]
+  },
+  {
+    "id": 104,
+    "name": "Latte",
+    "price": 5.00,
+    "ingredients": [ 
+      { "id": 501, "qty": 18 }, 
+      { "id": 503, "qty": 250 } 
+    ]
+  },
+  {
+    "id": 105,
+    "name": "Cappuccino",
+    "price": 5.00,
+    "ingredients": [ 
+      { "id": 501, "qty": 18 }, 
+      { "id": 503, "qty": 200 } 
+    ]
+  },
+  {
+    "id": 106,
+    "name": "Vanilla Latte",
+    "price": 5.50,
+    "ingredients": [ 
+      { "id": 501, "qty": 18 }, 
+      { "id": 503, "qty": 250 },
+      { "id": 504, "qty": 20 }
+    ]
+  },
+  {
+    "id": 107,
+    "name": "Mocha",
+    "price": 6.00,
+    "ingredients": [ 
+      { "id": 501, "qty": 18 }, 
+      { "id": 503, "qty": 200 },
+      { "id": 505, "qty": 30 }
+    ]
+  },
+  {
+    "id": 201,
+    "name": "English Breakfast Tea",
+    "price": 3.50,
+    "ingredients": [ 
+      { "id": 506, "qty": 1 }, 
+      { "id": 502, "qty": 300 } 
+    ]
+  },
+  {
+    "id": 202,
+    "name": "Iced Lemon Tea",
+    "price": 4.00,
+    "ingredients": [ 
+      { "id": 506, "qty": 1 }, 
+      { "id": 507, "qty": 2 },
+      { "id": 508, "qty": 20 },
+      { "id": 509, "qty": 150 }
+    ]
+  },
+  {
+    "id": 301,
+    "name": "Avocado Toast",
+    "price": 12.00,
+    "ingredients": [ 
+      { "id": 510, "qty": 2 }, 
+      { "id": 511, "qty": 1 },
+      { "id": 512, "qty": 2 },
+      { "id": 513, "qty": 10 }
+    ]
+  },
+  {
+    "id": 302,
+    "name": "Chicken Sandwich",
+    "price": 14.00,
+    "ingredients": [ 
+      { "id": 514, "qty": 1 }, 
+      { "id": 515, "qty": 150 },
+      { "id": 516, "qty": 20 },
+      { "id": 517, "qty": 30 },
+      { "id": 518, "qty": 40 }
+    ]
+  }
+]

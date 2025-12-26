@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe System (Secure)</title>
+    <style>
+        :root { --primary: #4a90e2; --dark: #2c3e50; }
+        body { font-family: 'Segoe UI', sans-serif; background: #eef2f5; margin: 0; display: flex; height: 100vh; }
+
+        /* LOGIN MODAL */
+        #login-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .login-box {
+            background: white; padding: 40px; border-radius: 10px; text-align: center; width: 300px;
+        }
+        .login-box input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .login-box button { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; }
+
+        /* MAIN LAYOUT */
+        .pos-container { width: 65%; padding: 30px; overflow-y: auto; }
+        .inventory-panel { width: 35%; background: white; border-left: 1px solid #ddd; padding: 20px; overflow-y: auto; }
+
+        /* MENU GRID */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .menu-item { background: white; padding: 20px; text-align: center; border-radius: 10px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .menu-item:hover { transform: translateY(-2px); border: 2px solid var(--primary); }
+
+        /* TABLE */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
+        .low-stock { color: red; font-weight: bold; }
+
+        /* ADMIN CONTROLS */
+        .restock-btn {
+            background: #27ae60; color: white; border: none; padding: 5px 10px;
+            border-radius: 4px; cursor: pointer; font-size: 0.8em; margin-left: 5px;
+            display: none; /* Hidden by default */
+        }
+        .user-info { position: absolute; top: 10px; right: 20px; background: #333; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay">
+    <div class="login-box">
+        <h2>🔒 System Login</h2>
+        <input type="text" id="username" placeholder="Username (admin/staff)">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p id="login-error" style="color:red; display:none;">Invalid Credentials</p>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="user-info" id="user-display"></div>
+
+<div class="pos-container">
+    <h1>☕ Cafe POS</h1>
+    <div id="menu-grid" class="menu-grid">Loading...</div>
+</div>
+
+<div class="inventory-panel">
+    <h2>📦 Inventory <button onclick="loadData()" style="float:right">🔄</button></h2>
+    <table>
+        <thead><tr><th>Item</th><th>Qty</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="inventory-table"></tbody>
+    </table>
+</div>
+
+<script>
+    let CURRENT_ROLE = "";
+
+    // 1. LOGIN LOGIC
+    async function login() {
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
+
+        try {
+            // Send raw string "user:pass"
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                body: u + ":" + p
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                CURRENT_ROLE = data.role;
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('user-display').innerText = `Logged in as: ${u} (${CURRENT_ROLE})`;
+                loadData(); // Load data after login
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        } catch (e) { alert("Server Error"); }
+    }
+
+    // 2. DATA LOADING
+    async function loadData() {
+        const res = await fetch('/api/data');
+        const data = await res.json();
+        renderMenu(data.menu);
+        renderInventory(data.inventory);
+    }
+
+    function renderMenu(menu) {
+        const div = document.getElementById('menu-grid');
+        div.innerHTML = '';
+        menu.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'menu-item';
+            el.innerHTML = `<h3>${item.name}</h3><p>$${item.price.toFixed(2)}</p>`;
+            el.onclick = () => order(item.id, item.name);
+            div.appendChild(el);
+        });
+    }
+
+    function renderInventory(inv) {
+        const tbody = document.getElementById('inventory-table');
+        tbody.innerHTML = '';
+        inv.forEach(item => {
+            const tr = document.createElement('tr');
+            const low = item.low ? '<span class="low-stock">LOW</span>' : 'OK';
+
+            // Show Restock Button ONLY if ADMIN
+            const btnDisplay = (CURRENT_ROLE === 'ADMIN' || 'SUPERADMIN' || 'OWNER' ) ? 'inline-block' : 'none';
+
+            tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.stock.toFixed(1)} ${item.unit}</td>
+                    <td>${low}</td>
+                    <td><button class="restock-btn" style="display:${btnDisplay}" onclick="restock(${item.id})">+</button></td>
+                `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // 3. ACTIONS
+    async function order(id, name) {
+        const res = await fetch(`/api/order?id=${id}`);
+        const d = await res.json();
+        if(d.success) { alert(`Sold ${name}`); loadData(); }
+        else alert(d.message);
+    }
+
+    async function restock(id) {
+        const qty = prompt("Enter quantity to add:");
+        if(!qty) return;
+
+        const res = await fetch(`/api/restock?id=${id}&qty=${qty}`, {
+            headers: { 'Role': CURRENT_ROLE } // Send Role to Server for verification
+        });
+        const d = await res.json();
+        if(d.success) { alert("Restock Successful"); loadData(); }
+        else alert(d.message);
+    }
+</script>
+</body>
+</html>
